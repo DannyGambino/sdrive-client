@@ -4,11 +4,11 @@ import { ApplicationViews } from "./ApplicationViews";
 import { NavBar } from "./nav/NavBar";
 import { Login } from "./auth/Login";
 import { Register } from "./auth/Register";
-import { EmployeeViews } from "./EmployeeViews";
-import { EmployeeNavBar } from "./nav/EmployeeNavBar";
+import { AdvisorViews } from "./views/AdvisorViews";
+import { AdvisorNavBar } from "./nav/AdvisorNavBar";
 import "./Repairs.css";
 import { isStaff } from "../utils/isStaff";
-import { EmployeeRegister } from "./auth/EmployeeRegister";
+import { AdvisorRegister } from "./auth/AdvisorRegister";
 
 export const Repairs = () => {
 
@@ -16,11 +16,11 @@ export const Repairs = () => {
     <>
       <Route
         render={() => {
-          if (localStorage.getItem("honeyrae")) {
+          if (localStorage.getItem("sdrive")) {
             if (isStaff()) {
               return <>
-                  <EmployeeNavBar />
-                  <EmployeeViews />
+                  <AdvisorNavBar />
+                  <AdvisorViews />
                 </>
             }
             else {
@@ -41,8 +41,8 @@ export const Repairs = () => {
       <Route path="/register">
         <Register />
       </Route>
-      <Route path="/registeremployee">
-        <EmployeeRegister />
+      <Route path="/registeradvisor">
+        <AdvisorRegister />
       </Route>
     </>
   )

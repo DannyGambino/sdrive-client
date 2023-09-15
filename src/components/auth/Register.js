@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom"
 import "./Login.css"
 
 export const Register = () => {
-    const [customer, setCustomer] = useState({ "account_type": "customer" })
+    const [technician, setTechnician] = useState({ "account_type": "technician" })
     const [serverFeedback, setFeedback] = useState("")
     const conflictDialog = useRef()
     const history = useHistory()
@@ -15,7 +15,7 @@ export const Register = () => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(customer)
+            body: JSON.stringify(technician)
         })
             .then(res => {
                 if (res.status === 200) {
@@ -26,7 +26,7 @@ export const Register = () => {
                 });
             })
             .then(createdUser => {
-                localStorage.setItem("honeyrae", JSON.stringify(createdUser))
+                localStorage.setItem("sdrive", JSON.stringify(createdUser))
                 history.push("/")
             })
             .catch(error => {
@@ -40,10 +40,10 @@ export const Register = () => {
         }
     }, [serverFeedback])
 
-    const updateCustomer = (evt) => {
-        const copy = { ...customer }
+    const updateTechnician = (evt) => {
+        const copy = { ...technician }
         copy[evt.target.id] = evt.target.value
-        setCustomer(copy)
+        setTechnician(copy)
     }
 
 
@@ -62,33 +62,33 @@ export const Register = () => {
                 <h1 className="h3 mb-3 font-weight-normal">Register New Account</h1>
                 <fieldset>
                     <label htmlFor="first_name"> First Name </label>
-                    <input onChange={updateCustomer}
+                    <input onChange={updateTechnician}
                         type="text" id="first_name"
                         className="form-control" required autoFocus />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="last_name"> Last Name </label>
-                    <input onChange={updateCustomer}
+                    <input onChange={updateTechnician}
                         type="text" id="last_name"
                         className="form-control" required />
                 </fieldset>
                 <fieldset>
-                    <label htmlFor="address"> Address </label>
-                    <input onChange={updateCustomer}
+                    <label htmlFor="specialty"> Specialty </label>
+                    <input onChange={updateTechnician}
                         type="text"
-                        id="address"
+                        id="specialty"
                         className="form-control" required />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="email"> Email address </label>
-                    <input onChange={updateCustomer}
+                    <input onChange={updateTechnician}
                         type="email"
                         id="email"
                         className="form-control" required />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="password"> Password </label>
-                    <input onChange={updateCustomer}
+                    <input onChange={updateTechnician}
                         type="password"
                         id="password"
                         className="form-control" required />

@@ -4,8 +4,8 @@ import { useHistory } from "react-router-dom"
 import "./Login.css"
 
 export const Login = () => {
-    const [email, setEmail] = useState("bryan@nilson.com")
-    const [password, setPassword] = useState("nilson")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
     const existDialog = useRef()
     const history = useHistory()
 
@@ -21,7 +21,7 @@ export const Login = () => {
             .then(res => res.json())
             .then(authInfo => {
                 if (authInfo.valid) {
-                    localStorage.setItem("honeyrae", JSON.stringify(authInfo))
+                    localStorage.setItem("sdrive", JSON.stringify(authInfo))
                     history.push("/")
                 } else {
                     existDialog.current.showModal()
@@ -38,7 +38,7 @@ export const Login = () => {
 
             <section>
                 <form className="form--login" onSubmit={handleLogin}>
-                    <h1>Honey Rae's Repairs</h1>
+                    <h1>S-Drive</h1>
                     <h2>Please sign in</h2>
                     <fieldset>
                         <label htmlFor="inputEmail"> Email address </label>
@@ -67,10 +67,10 @@ export const Login = () => {
             </section>
             <div className="loginLinks">
                 <section className="link--register">
-                    <Link to="/register">Not a member yet?</Link>
+                    <Link to="/registeradvisor">Register New Advisor</Link>
                 </section>
                 <section className="link--register">
-                    <Link to="/registeremployee">Register new employee</Link>
+                    <Link to="/register">Register New Technician</Link>
                 </section>
             </div>
         </main>

@@ -1,5 +1,5 @@
 export const isStaff = () => {
-    const auth = localStorage.getItem("honeyrae")
+    const auth = localStorage.getItem("sdrive")
     const userType = JSON.parse(auth)
     return userType?.staff
 }

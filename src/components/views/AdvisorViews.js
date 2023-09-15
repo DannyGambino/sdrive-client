@@ -1,19 +1,19 @@
 import React from "react"
 import { Route } from "react-router-dom"
-import { CustomerList } from "./customers/CustomerList";
-import { Employee } from "./employees/Employee";
-import { EmployeeForm } from "./employees/EmployeeForm";
-import { EmployeeList } from "./employees/EmployeeList";
+import { TechnicianList } from "./Technicians/TechnicianList";
+import { Advisor } from "./advisors/Advisor";
+import { AdvisorForm } from "./advisors/AdvisorForm";
+import { AdvisorList } from "./advisors/AdvisorList";
 import { Ticket } from "./serviceTickets/Ticket";
 import { TicketForm } from "./serviceTickets/TicketForm";
 import { TicketList } from "./serviceTickets/TicketList";
 
-export const EmployeeViews = () => {
+export const AdvisorViews = () => {
 
     return (
         <>
-            <Route exact path="/customers">
-                <CustomerList />
+            <Route exact path="/technicians">
+                <TechnicianList />
             </Route>
 
             <Route exact path="/">
@@ -32,16 +32,16 @@ export const EmployeeViews = () => {
                 <TicketForm />
             </Route>
 
-            <Route exact path="/employees">
-                <EmployeeList />
+            <Route exact path="/advisors">
+                <AdvisorList />
             </Route>
 
-            <Route exact path="/employees/:employeeId(\d+)">
-                <Employee />
+            <Route exact path="/advisors/:advisorId(\d+)">
+                <Advisor />
             </Route>
 
-            <Route path="/employees/create">
-                <EmployeeForm />
+            <Route path="/advisors/create">
+                <AdvisorForm />
             </Route>
 
         </>
