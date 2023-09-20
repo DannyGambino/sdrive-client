@@ -1,12 +1,12 @@
 import React from "react"
 import { Route } from "react-router-dom"
-import { TechnicianList } from "./Technicians/TechnicianList";
-import { Advisor } from "./advisors/Advisor";
-import { AdvisorForm } from "./advisors/AdvisorForm";
-import { AdvisorList } from "./advisors/AdvisorList";
-import { Ticket } from "./serviceTickets/Ticket";
-import { TicketForm } from "./serviceTickets/TicketForm";
-import { TicketList } from "./serviceTickets/TicketList";
+import { TechnicianList } from "../Technicians/TechnicianList";
+import { Advisor } from "../advisors/Advisor";
+import { AdvisorForm } from "../advisors/AdvisorForm";
+import { AdvisorList } from "../advisors/AdvisorList";
+import { Ticket } from "../serviceTickets/Ticket";
+import { TicketForm } from "../serviceTickets/TicketForm";
+import { TicketList } from "../serviceTickets/TicketList";
 
 export const AdvisorViews = () => {
 

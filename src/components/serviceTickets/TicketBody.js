@@ -18,7 +18,7 @@ export const TicketBody = ({ ticket, toggle }) => {
         <i className="ticket__icon">{ticket.emergency ? "🚑" : ""}</i>
         {
             isStaff()
-                ? <div className="ticket__customer">Customer: {ticket?.customer?.full_name}</div>
+                ? <div className="ticket__customer">Customer: {ticket?.customer}</div>
                 : ""
         }
 

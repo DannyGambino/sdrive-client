@@ -6,7 +6,7 @@ export const TicketForm = () => {
 
     const [ticket, updateTicket] = useState({
         description: "",
-        emergency: false
+        customer: ""
     })
     const history = useHistory()
 
@@ -22,7 +22,25 @@ export const TicketForm = () => {
 
     return (
         <form className="ticketForm">
-            <h2 className="ticketForm__title">New Service Ticket</h2>
+            <h2 className="ticketForm__title">New Repair Order</h2>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="customer">Customer Name:</label>
+                    <input
+                        onChange={
+                            (evt) => {
+                                const copy = {...ticket}
+                                copy.customer = evt.target.value
+                                updateTicket(copy)
+                            }
+                        }
+                        required autoFocus
+                        type="text" id="customer"
+                        className="form-control"
+                        placeholder="Insert Name"
+                        />
+                </div>
+            </fieldset>
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="description">Description:</label>
@@ -38,12 +56,40 @@ export const TicketForm = () => {
                         type="text" id="description"
                         className="form-control"
                         placeholder="Brief description of problem"
-                         />
+                        />
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="name">Emergency:</label>
+                    <label htmlFor="vehicle">Vehicle:</label>
+                    <input
+                        onChange={
+                            (evt) => {
+                                const copy = {...ticket}
+                                copy.vehicle = evt.target.value
+                                updateTicket(copy)
+                            }
+                        }
+                        required autoFocus
+                        type="text" id="vehicle"
+                        className="form-control"
+                        placeholder="Make and Model"
+                        />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="all-wheel">All-Wheel Drive</label>
+                    <input
+                        onChange={
+                            (evt) => {
+                                const copy = {...ticket}
+                                copy.emergency = evt.target.checked
+                                updateTicket(copy)
+                            }
+                        }
+                        type="checkbox" />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="2-wheel">2-Wheel Drive:</label>
                     <input
                         onChange={
                             (evt) => {
@@ -56,7 +102,7 @@ export const TicketForm = () => {
                 </div>
             </fieldset>
             <button onClick={submitTicket} className="btn btn-primary">
-                Submit Ticket
+                Submit Repair Order
             </button>
         </form>
     )

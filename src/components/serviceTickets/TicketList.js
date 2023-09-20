@@ -31,11 +31,11 @@ export const TicketList = () => {
 
     const toShowOrNotToShowTheButton = () => {
         if (isStaff()) {
-            return ""
+            return <button className="actions__create"
+            onClick={() => history.push("/tickets/create")}>Create Ticket</button>
         }
         else {
-            return <button className="actions__create"
-                onClick={() => history.push("/tickets/create")}>Create Ticket</button>
+            return ""
         }
     }
 

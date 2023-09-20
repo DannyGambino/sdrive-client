@@ -12,7 +12,7 @@ export const AdvisorNavBar = () => {
                 <Link className="navbar__link" to="/technicians">Technicians</Link>
             </li>
             <li className="navbar__item">
-                <Link className="navbar__link" to="/tickets">Service Tickets</Link>
+                <Link className="navbar__link" to="/tickets">Repair Orders</Link>
             </li>
             <li className="navbar__item">
                 <Link className="navbar__link" to="#"

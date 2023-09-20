@@ -4,15 +4,16 @@ import { fetchIt } from "../../utils/fetchIt"
 import { isStaff } from "../../utils/isStaff"
 
 export const Ticket = () => {
-    const [ticket, loadTicket] = useState({})
-    const [employees, syncEmployees] = useState([])
+    const [ticket, updateTicket] = useState({})
+    const [technicians, syncTechnicians] = useState([])
     const { ticketId } = useParams()
     const history = useHistory()
+    const [updating, setUpdating] = useState(false)
 
     const fetchTicket = useCallback(() => {
         return fetchIt(`http://localhost:8000/tickets/${ticketId}`)
-            .then(loadTicket)
-            .catch(() => loadTicket({}))
+            .then(updateTicket)
+            .catch(() => updateTicket({}))
     }, [ticketId])
 
     useEffect(
@@ -24,9 +25,9 @@ export const Ticket = () => {
 
     useEffect(
         () => {
-            fetchIt("http://localhost:8000/employees")
-                .then(syncEmployees)
-                .catch(() => syncEmployees([]))
+            fetchIt("http://localhost:8000/technicians")
+                .then(syncTechnicians)
+                .catch(() => syncTechnicians([]))
         }, []
     )
 
@@ -39,21 +40,21 @@ export const Ticket = () => {
         ).then(() => history.push("/tickets"))
     }
 
-    const updateTicket = (evt) => {
-        const updatedTicket = {...ticket, employee: parseInt(evt.target.value)}
-
+    const updateTechnician = (evt) => {
+        const updatedTicket = {...ticket, technician: parseInt(evt.target.value)}
+        
         fetchIt(
             `http://localhost:8000/tickets/${ticketId}`,
             {
                 method: "PUT",
                 body: JSON.stringify(updatedTicket)
             }
-        ).then(fetchTicket)
+        ).then(updateTicket({...ticket, technician: parseInt(evt.target.value)}))
     }
 
     const ticketStatus = () => {
         if (ticket.date_completed === null) {
-            if (ticket.employee) {
+            if (ticket.technician) {
                 return <span className="status--in-progress">In progress</span>
             }
             return <span className="status--new">Unclaimed</span>
@@ -61,37 +62,136 @@ export const Ticket = () => {
         return <span className="status--completed">Done</span>
     }
 
-    const employeePicker = (ticket) => {
+    const technicianPicker = (ticket) => {
         if (isStaff()) {
-            return <div className="ticket__employee">Assigned to {" "}
+            return <div className="ticket__technician">Assigned to {" "}
                 <select
-                    value={ticket?.employee?.id}
-                    onChange={updateTicket}>
+                    value={ticket?.technician?.id}
+                    onChange={e => updateTechnician(e)}>
                     <option value="0">Choose...</option>
                     {
-                        employees.map(e => <option key={`employee--${e.id}`} value={e.id}>{e.full_name}</option>)
+                        technicians.map(e => <option key={`technician--${e.id}`} value={e.id}>{e.full_name}: {e.specialty}</option>)
                     }
                 </select>
             </div>
         }
         else {
-            return <div className="ticket__employee">Assigned to {ticket?.employee?.full_name ?? "no one"}</div>
+            return <div className="ticket__technician">Assigned to {ticket?.technician?.full_name ?? "no one"}</div>
         }
+    }
+
+    const submitTicket = (evt) => {
+        evt.preventDefault()
+        console.log(ticket)
+        fetchIt(
+            `http://localhost:8000/tickets/${ticketId}`,
+            { method: "PUT", body: JSON.stringify(ticket) }
+        )
+            .then(() => history.push("/tickets"))
     }
 
     return (
         <>
             <section className="ticket">
+                {updating ? (
+            <form className="ticketForm">
+                <h2 className="ticketForm__title">Update Repair Order</h2>
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="customer">Customer Name:</label>
+                        <input
+                            onChange={
+                                (evt) => {
+                                    const copy = {...ticket}
+                                    copy.customer = evt.target.value
+                                    updateTicket(copy)
+                                }
+                            }
+                            required autoFocus
+                            type="text" id="customer"
+                            className="form-control"
+                            placeholder="Insert Name"
+                            />
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="description">Description:</label>
+                        <input
+                            onChange={
+                                (evt) => {
+                                    const copy = {...ticket}
+                                    copy.description = evt.target.value
+                                    updateTicket(copy)
+                                }
+                            }
+                            required autoFocus
+                            type="text" id="description"
+                            className="form-control"
+                            placeholder="Brief description of problem"
+                            />
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="vehicle">Vehicle:</label>
+                        <input
+                            onChange={
+                                (evt) => {
+                                    const copy = {...ticket}
+                                    copy.vehicle = evt.target.value
+                                    updateTicket(copy)
+                                }
+                            }
+                            required autoFocus
+                            type="text" id="vehicle"
+                            className="form-control"
+                            placeholder="Make and Model"
+                            />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="all-wheel">All-Wheel Drive</label>
+                        <input
+                            onChange={
+                                (evt) => {
+                                    const copy = {...ticket}
+                                    copy.emergency = evt.target.checked
+                                    updateTicket(copy)
+                                }
+                            }
+                            type="checkbox" />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="2-wheel">2-Wheel Drive:</label>
+                        <input
+                            onChange={
+                                (evt) => {
+                                    const copy = {...ticket}
+                                    copy.emergency = evt.target.checked
+                                    updateTicket(copy)
+                                }
+                            }
+                            type="checkbox" />
+                    </div>
+                </fieldset>
+                <button onClick={submitTicket} className="btn btn-primary">
+                    Submit Repair Order
+                </button>
+            </form>
+                ) : (
+                <div className="ticket__static">
                 <h3 className="ticket__description">Description</h3>
                 <div>{ticket.description}</div>
+                <h3 className="ticket__description">Vehicle</h3>
+                <div>{ticket.vehicle}</div>
 
                 <footer className="ticket__footer ticket__footer--detail">
-                    <div className=" footerItem">Submitted by {ticket.customer?.full_name}</div>
-                    <div className="ticket__employee footerItem">
+                    <div className=" footerItem">Submitted by {ticket.advisor?.full_name}</div>
+                    <div className="ticket__technician footerItem">
                         {
                             ticket.date_completed === null
-                                ? employeePicker(ticket)
-                                : `Completed by ${ticket.employee?.name} on ${ticket.date_completed}`
+                                ? technicianPicker(ticket)
+                                : `Completed by ${ticket.technician?.name} on ${ticket.date_completed}`
                         }
                     </div>
                     <div className="footerItem">
@@ -99,10 +199,13 @@ export const Ticket = () => {
                     </div>
                     {
                         isStaff()
-                            ? ""
-                            : <button onClick={deleteTicket}>Delete</button>
+                            ? <><button onClick={() => setUpdating(true)}>Update</button><button onClick={deleteTicket}>Delete</button></>
+                            : ""
                     }
                 </footer>
+                </div>
+
+                )}
 
             </section>
         </>

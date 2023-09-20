@@ -1,14 +1,14 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { ApplicationViews } from "./ApplicationViews";
-import { NavBar } from "./nav/NavBar";
-import { Login } from "./auth/Login";
-import { Register } from "./auth/Register";
-import { AdvisorViews } from "./views/AdvisorViews";
-import { AdvisorNavBar } from "./nav/AdvisorNavBar";
+import { NavBar } from "../nav/NavBar";
+import { Login } from "../auth/Login";
+import { Register } from "../auth/Register";
+import { AdvisorViews } from "./AdvisorViews";
+import { AdvisorNavBar } from "../nav/AdvisorNavBar";
 import "./Repairs.css";
-import { isStaff } from "../utils/isStaff";
-import { AdvisorRegister } from "./auth/AdvisorRegister";
+import { isStaff } from "../../utils/isStaff";
+import { AdvisorRegister } from "../auth/AdvisorRegister";
 
 export const Repairs = () => {
 
