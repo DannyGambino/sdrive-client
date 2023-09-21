@@ -16,8 +16,8 @@ export const Advisor = () => {
     return (
         <>
             <section className="advisor">
-                <h3 className="advisor__name">{advisor.name}</h3>
-                <div className="advisor__specialty">Specialty is {advisor.specialty}</div>
+                <h3 className="advisor__name">{advisor.full_name}</h3>
+                <div className="advisor__specialty">Experience: {advisor.experience}</div>
             </section>
         </>
     )

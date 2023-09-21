@@ -47,7 +47,7 @@ export const AdvisorForm = () => {
                         type="text"
                         className="form-control"
                         placeholder="Full name"
-                         />
+                        />
                 </div>
             </fieldset>
             <fieldset>
@@ -65,7 +65,7 @@ export const AdvisorForm = () => {
                         type="text"
                         className="form-control"
                         placeholder="Technical specialty"
-                         />
+                        />
                 </div>
             </fieldset>
             <button onClick={hireAdvisor} className="btn btn-primary">

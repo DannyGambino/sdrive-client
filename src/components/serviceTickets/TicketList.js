@@ -15,6 +15,7 @@ export const TicketList = () => {
         fetchIt("http://localhost:8000/tickets")
             .then((tickets) => {
                 setOriginal(tickets)
+                console.log(tickets)
             })
             .catch(() => setOriginal([]))
     }, [])

@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import { useHistory } from "react-router-dom"
 import { fetchIt } from "../../utils/fetchIt"
 
@@ -6,18 +6,30 @@ export const TicketForm = () => {
 
     const [ticket, updateTicket] = useState({
         description: "",
-        customer: ""
+        customer: "",
+        vehicle: ""  
     })
     const history = useHistory()
 
-    const submitTicket = (evt) => {
-        evt.preventDefault()
-
+    const submitFetch = (updatedTicket) => {
         fetchIt(
             "http://localhost:8000/tickets",
-            { method: "POST", body: JSON.stringify(ticket) }
-        )
-            .then(() => history.push("/tickets"))
+            { method: "POST", body: JSON.stringify(updatedTicket) }
+        ).then(() => history.push("/tickets"));
+    }
+    
+    const getRoNumber = async () => {
+        const fetched = await fetchIt("http://localhost:8000/tickets");
+        const roNumber = fetched.length + 1;
+        return roNumber;
+    }
+    
+    const submitTicket = (evt) => {
+        evt.preventDefault();
+        getRoNumber().then((roNumber) => {
+            const updatedTicket = { ...ticket, ro_identifier: roNumber };
+            submitFetch(updatedTicket);
+        });
     }
 
     return (
@@ -75,30 +87,6 @@ export const TicketForm = () => {
                         className="form-control"
                         placeholder="Make and Model"
                         />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="all-wheel">All-Wheel Drive</label>
-                    <input
-                        onChange={
-                            (evt) => {
-                                const copy = {...ticket}
-                                copy.emergency = evt.target.checked
-                                updateTicket(copy)
-                            }
-                        }
-                        type="checkbox" />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="2-wheel">2-Wheel Drive:</label>
-                    <input
-                        onChange={
-                            (evt) => {
-                                const copy = {...ticket}
-                                copy.emergency = evt.target.checked
-                                updateTicket(copy)
-                            }
-                        }
-                        type="checkbox" />
                 </div>
             </fieldset>
             <button onClick={submitTicket} className="btn btn-primary">
