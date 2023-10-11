@@ -24,9 +24,8 @@ export const AdvisorList = () => {
 
     return (
         <>
-            <div className="experience">
+            <div className="experience container">
                 <strong>Team Experience</strong>: { experience }
-            </div>
             <h2>Advisor Roster</h2>
             {
                 advisors.map(
@@ -35,8 +34,9 @@ export const AdvisorList = () => {
                             <p>{advisor.full_name}</p>
                         </Link>
                     }
-                )
-            }
+                    )
+                }
+                </div>
         </>
     )
 }

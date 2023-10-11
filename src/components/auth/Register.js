@@ -94,7 +94,7 @@ export const Register = () => {
                         className="form-control" required />
                 </fieldset>
                 <fieldset>
-                    <button type="submit"> Register </button>
+                    <button className="button" type="submit"> Register </button>
                 </fieldset>
             </form>
         </main>

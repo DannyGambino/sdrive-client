@@ -32,7 +32,7 @@ export const TicketList = () => {
 
     const toShowOrNotToShowTheButton = () => {
         if (isStaff()) {
-            return <button className="actions__create"
+            return <button className="button"
             onClick={() => history.push("/tickets/create")}>Create Ticket</button>
         }
         else {
@@ -49,13 +49,15 @@ export const TicketList = () => {
     }
 
     return <>
-        <div>
-            <button onClick={() => filterTickets("done")}>Show Done</button>
-            <button onClick={() => filterTickets("all")}>Show All</button>
+        <div className="header-buttons container">
+            <div>
+            <button className="button show-done" onClick={() => filterTickets("done")}>Show Done</button>
+            <button className="button" onClick={() => filterTickets("all")}>Show All</button>
+            </div>
+            {toShowOrNotToShowTheButton()}
         </div>
-        <div className="actions">{toShowOrNotToShowTheButton()}</div>
         <div className="activeTickets">{active}</div>
-        <article className="tickets">
+        <article className="tickets container">
             { tickets.map(ticket => <TicketCard key={`ticket--${ticket.id}`} ticket={ticket} toggle={toggle} />) }
         </article>
     </>

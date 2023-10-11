@@ -99,7 +99,7 @@ export const Ticket = () => {
             </div>
         }
         else {
-            return <div className="ticket__technician">Assigned to {ticket?.technician?.full_name ?? "no one"}</div>
+            return <div className="ticket__technician">Assigned to {technician?.full_name ?? "no one"}</div>
         }
     }
     
@@ -133,6 +133,7 @@ export const Ticket = () => {
 
     return (
         <>
+        <div className="container">
             <section className="ticket">
                 {updating ? (
             <form className="ticketForm">
@@ -194,12 +195,12 @@ export const Ticket = () => {
                             />
                     </div>
                 </fieldset>
-                <button onClick={submitTicket} className="btn btn-primary">
+                <button onClick={submitTicket} className="button">
                     Submit Repair Order
                 </button>
             </form>
                 ) : (
-                <div className="ticket__static">
+                    <div className="ticket__static">
                 <h3 className="ticket__description">Description</h3>
                 <div>{ticket.description}</div>
                 <h3 className="ticket__description">Vehicle</h3>
@@ -210,44 +211,49 @@ export const Ticket = () => {
                     <div className="ticket__technician footerItem">
                         {
                             ticket.date_completed === null
-                                ? technicianPicker(ticket)
+                            ? technicianPicker(ticket)
                                 : `Completed by ${technician?.full_name} on ${ticket.date_completed}`
                         }
                     </div>
                     <div className="footerItem">
-                    <div className="ticket__complete">
-                        <input
-                        type="radio"
-                        name="completed"
-                        value="Active"
-                        onChange={ticket => complete(ticket)}
-                        >
-                        </input>
-                        <label>Active</label>
-                        <input
-                        type="radio"
-                        name="completed"
-                        value="Completed"
-                        onChange={ticket => complete(ticket)}
-                        >
-                        </input>
-                        <label>Completed</label>              
-                </div>
+                        {
+                            isStaff()
+                            ? (<div className="ticket__complete">
+                            <input
+                            type="radio"
+                            name="completed"
+                            value="Active"
+                            onChange={ticket => complete(ticket)}
+                            >
+                            </input>
+                            <label>Active</label>
+                            <input
+                            type="radio"
+                            name="completed"
+                            value="Completed"
+                            onChange={ticket => complete(ticket)}
+                            >
+                            </input>
+                            <label>Completed</label>              
+                            </div>)
+                            : ""    
+                        }
                     </div>
                     <div className="footerItem">
                         { ticketStatus() }
                     </div>
                     {
                         isStaff()
-                            ? <><button onClick={() => setUpdating(true)}>Update</button><button onClick={deleteTicket}>Delete</button></>
-                            : ""
+                        ? <><button className="button update" onClick={() => setUpdating(true)}>Update</button><button className="button delete" onClick={deleteTicket}>Delete</button></>
+                        : ""
                     }
                 </footer>
                 </div>
 
-                )}
+)}
 
             </section>
+            </div>
         </>
     )
 }

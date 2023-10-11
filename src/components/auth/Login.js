@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react"
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom"
 import "./Login.css"
+import myImage from './s-drive-logo.png'
 
 export const Login = () => {
     const [email, setEmail] = useState("")
@@ -38,7 +39,9 @@ export const Login = () => {
 
             <section>
                 <form className="form--login" onSubmit={handleLogin}>
-                    <h1>S-Drive</h1>
+                    <div>
+                    <img className="login-logo" src={myImage}></img>
+                    </div>
                     <h2>Please sign in</h2>
                     <fieldset>
                         <label htmlFor="inputEmail"> Email address </label>
@@ -59,7 +62,7 @@ export const Login = () => {
                             required />
                     </fieldset>
                     <fieldset>
-                        <button type="submit">
+                        <button className="button" type="submit">
                             Sign in
                         </button>
                     </fieldset>

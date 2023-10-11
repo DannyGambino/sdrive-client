@@ -33,6 +33,8 @@ export const TicketForm = () => {
     }
 
     return (
+        <div className="container">
+        <div className="ticket">
         <form className="ticketForm">
             <h2 className="ticketForm__title">New Repair Order</h2>
             <fieldset>
@@ -89,9 +91,11 @@ export const TicketForm = () => {
                         />
                 </div>
             </fieldset>
-            <button onClick={submitTicket} className="btn btn-primary">
+            <button onClick={submitTicket} className="button">
                 Submit Repair Order
             </button>
         </form>
+        </div>
+        </div>
     )
 }

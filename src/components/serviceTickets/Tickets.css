@@ -7,7 +7,6 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: space-between;
 }
 
 @media (max-width: 768px) {
@@ -21,11 +20,11 @@
 .ticket {
     display: flex;
     flex-direction: column;
-    flex-basis: 35%;
+    flex-basis: 26%;
     padding: 1.5rem;
     border-radius: 0.25rem;
-    border: 1px solid salmon;
-    margin: 1.25rem 0;
+    border: 1px solid;
+    margin: 0.75rem;
     position: relative;
     box-shadow: 0.25rem 0.25rem 0.35rem rgba(0,0,0,0.5);
 }
@@ -96,4 +95,21 @@
     font-weight: 900;
     font-size: 1rem;
     color: crimson;
+}
+
+.show-done {
+    margin-right: .5rem;
+}
+
+.header-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.update {
+    margin-right: .5rem;
+}
+
+.ticketForm {
+    width: 100%;
 }
